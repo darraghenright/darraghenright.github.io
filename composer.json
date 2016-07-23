@@ -1,5 +1,5 @@
 {
-    "name": "darragh/darraghenright.github.io",
+    "name": "darraghenright/darraghenright.github.io",
     "require": {
         "erusev/parsedown": "^1.6"
     }
