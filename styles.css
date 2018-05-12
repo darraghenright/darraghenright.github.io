@@ -12,6 +12,10 @@ code {
   font-family: 'Fira Mono', Menlo, monospace;
 }
 
+.main-nav {
+  border-bottom: 1px solid #f6f6f6;
+}
+
 article > h1 {
   font-weight: 700;
   margin-bottom: 2rem;
