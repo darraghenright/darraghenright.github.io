@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
-    <link rel="stylesheet" href="_assets/styles.css">
+    <link rel="stylesheet" href="/_assets/styles.css">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
@@ -13,12 +13,14 @@
   </head>
   <body>
     <nav class="navbar sticky-top navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="/">darraghenright.github.io</a>
+      <div class="container">
+        <a class="navbar-brand" href="/">darraghenright.github.io</a>
+      </div>
     </nav>
     <main class="container" role="main">
       {{ content }}
     </main>
-    <footer>
+    <footer class="container text-center text-muted mt-4">
       <a href="https://github.com/darraghenright/">GitHub</a>
       <a href="https://stackoverflow.com/users/312962/darragh-enright">StackOverflow</a>
       <a href="https://www.linkedin.com/in/darraghenright">LinkedIn</a>
