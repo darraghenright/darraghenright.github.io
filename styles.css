@@ -11,6 +11,10 @@ code {
   font-family: 'Fira Mono', Menlo, monospace;
 }
 
+article > h1 {
+  margin-bottom: 2rem;  
+}
+
 /* highlighting */
 
 .highlight pre {
