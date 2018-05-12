@@ -4,26 +4,24 @@
 
 Python
 
-~~~python
+```python
 class Person(object):
     def __init__(self, name):
         self.name = name
 
     def __str__(self):
         return 'Hi, my name is {}'.format(self.name)
-~~~
+```
 
 and Elixir:
 
 ```elixir
-
 # split lines!
 def split_lines(text) do
   text
   |> String.downcase()
   |> String.split(~r/\n/)
 done
-
 ```
 
 and PHP

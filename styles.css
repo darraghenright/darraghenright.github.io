@@ -7,8 +7,8 @@ body {
 
 /* highlighting */
 
-.highlight {
-  padding: 8px;    
+.highlight pre {
+  padding: 1rem;
 }
 
 .highlight table td {
