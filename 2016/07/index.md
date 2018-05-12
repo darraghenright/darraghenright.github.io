@@ -1,8 +1,8 @@
-# darraghenright.github.io
-
-[Home](/)
+# Test
 
 2016/07
+
+Python
 
 ~~~python
 class Person(object):
@@ -13,7 +13,20 @@ class Person(object):
         return 'Hi, my name is {}'.format(self.name)
 ~~~
 
-and
+and Elixir:
+
+```elixir
+
+# split lines!
+def split_lines(text) do
+  text
+  |> String.downcase()
+  |> String.split(~r/\n/)
+done
+
+```
+
+and PHP
 
 ```php
 
