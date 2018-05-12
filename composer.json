@@ -1,6 +1,0 @@
-{
-    "name": "darraghenright/darraghenright.github.io",
-    "require": {
-        "erusev/parsedown": "^1.6"
-    }
-}
