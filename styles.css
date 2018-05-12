@@ -1,8 +1,14 @@
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
 
 body {
   font-family: 'Raleway', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+pre,
+code {
+  font-family: 'Fira Mono', Menlo, monospace;
 }
 
 /* highlighting */
