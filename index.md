@@ -1,6 +1,8 @@
-# darraghenright.github.io
+# [darraghenright.github.io](/)
 
-[GitHub](https://github.com/darraghenright/)
+## Links
+
+* [GitHub](https://github.com/darraghenright/)
 
 ## Articles
 
