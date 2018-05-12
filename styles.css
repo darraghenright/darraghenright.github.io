@@ -21,6 +21,13 @@ article > h1 {
   margin-bottom: 2rem;
 }
 
+blockquote {
+  background: #ffc;
+  border-left: 4px solid #fea;
+  margin: 0 0 1rem;
+  padding: 1rem;
+}
+
 /* highlighting */
 
 .highlight pre {
