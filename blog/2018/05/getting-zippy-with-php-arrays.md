@@ -1,0 +1,106 @@
+2018-05-13
+
+# Getting zippy with PHP arrays
+
+`zip` - not to be confused with the archive format - is a useful merging operation that is a native feature in many languages including Python, Ruby and functional languages such as Elixir and Haskell.  
+
+Exact behaviour varies by language but, generally speaking, `zip` combines multiple input sequences into an output sequence of values grouped by their corresponding index.
+
+This is best illustrated by example. Python's native [`zip()`](https://docs.python.org/3.3/library/functions.html#zip) function combines one or more lists and groups their values into a list of tuples; e.g:
+
+```python
+zip([1, 2], ['a', 'b'], ['A', 'B'])
+
+# [
+#   (1, 'a', 'A'),
+#   (2, 'b', 'B')
+# ]
+```
+
+JavaScript doesn't have native `zip` functionality (or tuples) but utility libraries such as [Lodash](https://lodash.com/docs/4.17.10#zip) provide the functionality to combine values into an array of arrays; e.g:
+
+```javascript
+_.zip([1, 2], ['a', 'b'], ['A', 'B']);
+
+// [
+//   [1, 'a', 'A'],
+//   [2, 'b', 'B']
+// ]
+```
+
+PHP doesn't have a native `zip()` function, but a lesser-known feature of `array_map()` approximates its behaviour. As stated in the [documentation](http://php.net/manual/en/function.array-map.php):
+
+> An interesting use of this function is to construct an array of arrays, which can be easily performed by using NULL as the name of the callback function
+
+`array_map()` is normally used to apply a callback to one or more arrays, but if you pass `null` as its first argument, and pass it two or more arrays, it will implicitly "zip" their values; e.g:
+
+```php
+array_map(null, [1, 2], ['a', 'b'], ['A', 'B']);
+
+// [
+//    [1, "a", "A"],
+//    [2, "b", "B"],
+// ]
+```
+
+Let's use the behaviour of `array_map()` to create our own `zip()` function. Using the [variadic syntax](http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list.new) (`...`) introduced in PHP 5.6, we can elegantly unpack variadic arguments, and add some type hinting for good measure:
+
+```php
+function zip(array ...$arrays): array
+{
+	return array_map(null, ...$arrays);
+}
+
+zip([1, 2], ['a', 'b'], ['A', 'B']);
+
+// [
+//	  [1, 'a', 'A'],
+//	  [2, 'b', 'B'],
+// ]
+```
+
+However, it's worth pointing out that passing only one array to `array_map()` just returns the same output as input:
+
+```php
+array_map(null, [1, 2]);
+
+// [1, 2] *not* [[1], [2]]
+```
+
+This is not consistent with the behaviour of `zip` in other languages, so let's rectify that:
+
+```php
+function zip(array $first, array ...$rest): array
+{
+    return $rest ? array_map(null, $first, ...$rest)
+                 : array_chunk($first, 1);
+}
+```
+
+Again we are using PHP's recently introduced variadic syntax to accept and unpack a dynamic number of arguments, while retaining type checking on those arguments. When only one array is passed to `zip()` the value of `$rest` is an empty array, which forms the basis of our condition.
+
+If only one array is present, we simply use PHP's built in [`array_chunk()`](http://php.net/manual/en/function.array-chunk.php) to format the output as required - into single elements in our case.
+
+This gives us the following behaviour:
+
+```php
+zip([]);
+
+// []
+
+zip([1, 2]);
+
+// [
+//   [1],
+//   [2],
+// ]
+
+zip([1, 2], ['a', 'b']);
+
+// [
+//   [1, 'a'],
+//   [2, 'b'],
+// ]
+```
+
+Nice! :)
