@@ -2,9 +2,13 @@
 
 # Getting zippy with PHP arrays
 
+## Introduction
+
 `zip` - not to be confused with the archive format - is a useful merging operation that is a native feature in many languages including Python, Ruby and functional languages such as Elixir and Haskell.  
 
 Exact behaviour varies by language but, generally speaking, `zip` combines multiple input sequences into an output sequence of values grouped by their corresponding index.
+
+## Examples
 
 This is best illustrated by example. Python's native [`zip()`](https://docs.python.org/3.3/library/functions.html#zip) function combines one or more lists and groups their values into a list of tuples; e.g:
 
@@ -14,6 +18,38 @@ zip([1, 2], ['a', 'b'], ['A', 'B'])
 # [
 #   (1, 'a', 'A'),
 #   (2, 'b', 'B')
+# ]
+```
+
+Elixir - which has two slightly different implementations, as illustrated below:
+
+```elixir
+# Enum.zip/1 accepts an iterable containing an arbitrary but finite number of iterables
+Enum.zip [[1, 2], [:a, :b], [:A, :B]]
+
+# [
+#   {1, :a, :A}, 
+#   {2, :b, :B}
+# ]
+
+# Enum.zip/2 accepts exactly two iterables
+Enum.zip [1, 2], [:a, :b]
+
+# [
+#   {1, :a}, 
+#   {2, :b}
+# ]
+
+```
+
+Ruby takes an OOP approach:
+
+```
+[1, 2].zip([:a, :b], [:A, :B])
+
+# [
+#   [1, :a, :A], 
+#   [2, :b, :B]
 # ]
 ```
 
@@ -28,18 +64,22 @@ _.zip([1, 2], ['a', 'b'], ['A', 'B']);
 // ]
 ```
 
-PHP doesn't have a native `zip()` function, but a lesser-known feature of `array_map()` approximates its behaviour. As stated in the [documentation](http://php.net/manual/en/function.array-map.php):
+## And in PHP?
+
+PHP doesn't have a native `zip()` function either, but a lesser-known feature of `array_map()` approximates its behaviour. As stated in the [documentation](http://php.net/manual/en/function.array-map.php):
 
 > An interesting use of this function is to construct an array of arrays, which can be easily performed by using NULL as the name of the callback function
 
-`array_map()` is normally used to apply a callback to one or more arrays, but if you pass `null` as its first argument, and pass it two or more arrays, it will implicitly "zip" their values; e.g:
+Interesting indeed! `array_map()` is normally used to apply a callback to one or more arrays, but if you pass `null` as its first 
+
+ment, and pass it two or more arrays - more on this presently - it will implicitly "zip" their values; e.g:
 
 ```php
 array_map(null, [1, 2], ['a', 'b'], ['A', 'B']);
 
 // [
-//    [1, "a", "A"],
-//    [2, "b", "B"],
+//   [1, 'a', 'A'],
+//   [2, 'b', 'B'],
 // ]
 ```
 
@@ -48,18 +88,20 @@ Let's use the behaviour of `array_map()` to create our own `zip()` function. Usi
 ```php
 function zip(array ...$arrays): array
 {
-	return array_map(null, ...$arrays);
+    return array_map(null, ...$arrays);
 }
 
 zip([1, 2], ['a', 'b'], ['A', 'B']);
 
 // [
-//	  [1, 'a', 'A'],
-//	  [2, 'b', 'B'],
+//   [1, 'a', 'A'],
+//   [2, 'b', 'B'],
 // ]
 ```
 
-However, it's worth pointing out that passing only one array to `array_map()` just returns the same output as input:
+## A better implementation
+
+However, as implied above, there's a catch... passing only one array to `array_map()` just returns the same output as input:
 
 ```php
 array_map(null, [1, 2]);
@@ -77,14 +119,14 @@ function zip(array $first, array ...$rest): array
 }
 ```
 
-Again we are using PHP's recently introduced variadic syntax to accept and unpack a dynamic number of arguments, while retaining type checking on those arguments. When only one array is passed to `zip()` the value of `$rest` is an empty array, which forms the basis of our condition.
+Again we are using PHP's variadic syntax to accept and unpack a dynamic number of arguments, while retaining `array` type checking on those arguments. When only one array is passed to `zip()` the variadic `$rest` argument is an empty array, which which we can use to assert a condition.
 
-If only one array is present, we simply use PHP's built in [`array_chunk()`](http://php.net/manual/en/function.array-chunk.php) to format the output as required - into single elements in our case.
+And, if only one array is present, we instead use PHP's built in [`array_chunk()`](http://php.net/manual/en/function.array-chunk.php) to format the output into an array of single element sub-arrays as required.
 
 This gives us the following behaviour:
 
 ```php
-zip([]);
+zip([]); 
 
 // []
 
