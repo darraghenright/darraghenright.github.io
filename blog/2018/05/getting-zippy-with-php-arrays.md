@@ -21,10 +21,12 @@ zip([1, 2], ['a', 'b'], ['A', 'B'])
 # ]
 ```
 
-Elixir - which has two slightly different implementations, as illustrated below:
+Elixir - which has two slightly different implementations, as illustrated below - also zips lists into tuples; e.g:
 
 ```elixir
-# Enum.zip/1 accepts an iterable containing an arbitrary but finite number of iterables
+# Enum.zip/1 accepts an iterable 
+# containing an arbitrary but 
+# finite number of iterables
 Enum.zip [[1, 2], [:a, :b], [:A, :B]]
 
 # [
@@ -42,10 +44,10 @@ Enum.zip [1, 2], [:a, :b]
 
 ```
 
-Ruby takes an OOP approach:
+Ruby takes a predictably OOP approach to combine values into an array of arrays; e.g:
 
 ```
-[1, 2].zip([:a, :b], [:A, :B])
+[1, 2].zip [:a, :b], [:A, :B]
 
 # [
 #   [1, :a, :A], 
@@ -70,9 +72,7 @@ PHP doesn't have a native `zip()` function either, but a lesser-known feature of
 
 > An interesting use of this function is to construct an array of arrays, which can be easily performed by using NULL as the name of the callback function
 
-Interesting indeed! `array_map()` is normally used to apply a callback to one or more arrays, but if you pass `null` as its first 
-
-ment, and pass it two or more arrays - more on this presently - it will implicitly "zip" their values; e.g:
+Interesting indeed! `array_map()` is normally used to apply a callback to one or more arrays, but if you pass `null` as its first argument, and pass it two or more arrays - more on this presently - it will implicitly "zip" their values; e.g:
 
 ```php
 array_map(null, [1, 2], ['a', 'b'], ['A', 'B']);
@@ -82,6 +82,8 @@ array_map(null, [1, 2], ['a', 'b'], ['A', 'B']);
 //   [2, 'b', 'B'],
 // ]
 ```
+
+## A PHP implementation
 
 Let's use the behaviour of `array_map()` to create our own `zip()` function. Using the [variadic syntax](http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list.new) (`...`) introduced in PHP 5.6, we can elegantly unpack variadic arguments, and add some type hinting for good measure:
 
@@ -99,7 +101,7 @@ zip([1, 2], ['a', 'b'], ['A', 'B']);
 // ]
 ```
 
-## A better implementation
+## A better PHP implementation
 
 However, as implied above, there's a catch... passing only one array to `array_map()` just returns the same output as input:
 
@@ -145,4 +147,18 @@ zip([1, 2], ['a', 'b']);
 // ]
 ```
 
-Nice! :)
+## What about arrays with different lengths?
+
+This is where things get interesting. As mentioned at the beginning, implementations vary. Our implementation does what I'll call a "full" zip, where the values are zipped according to the longest input, and non-existent values are substituted with `null`:
+
+```php
+zip([1, 2], ['a'], ['A', 'B', 'C']));
+
+// [
+//   [1, 'a', 'A'],
+//   [2, null, 'B'],
+//   [null, null, 'C']
+// ]  
+```
+
+This is the same behaviour as Lodash's zip implementation. Ruby is similar - adding `nil` values - but stops when the called array's length is reached. Elixir and Python stop zipping at the length of the shortest list. Maybe an interesting exercise for the reader to figure out an elegant way to emulate this behaviour? :)
