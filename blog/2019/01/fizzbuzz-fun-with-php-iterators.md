@@ -2,11 +2,11 @@
 
 # FizzBuzz fun with PHP Iterators
 
-Happy new year!
+Or... NAFBI (Not Another FizzBuzz Implementation).
 
-[FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) - that fun little coding exercise beloved of interviewers everywhere. Like all good diversions, it's as much about the journey as the destination... there's no end to the possible implementations. It's a good chance for coders to show how elegant or efficient or [hilariously ridiculous](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition) they can be in (mostly) a few lines.
+[FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) - that fun little coding exercise beloved of interviewers everywhere. Like all good diversions, it's as much about the journey as the destination... there's no end to the possible implementations, which means it's a good opportunity for the coder to show how simple, elegant, efficient or [enterprise-ready](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition) they can be in (mostly) a few lines.
 
-I thought it was a good chance to use some of PHP's [SPL iterators](http://php.net/manual/en/spl.iterators.php). PHP's [Standard PHP Library (SPL)](http://php.net/manual/en/intro.spl.php) is a collection of classes, interfaces and functions designed to solve common problems. It's definitely worth getting to know some of them as they can be very useful.
+I thought it was a good opportunity to look at some of PHP's [SPL iterators](http://php.net/manual/en/spl.iterators.php). The [Standard PHP Library (SPL)](http://php.net/manual/en/intro.spl.php) is a collection of classes, interfaces and functions designed to solve common problems. It's definitely worth getting to know some of them as they can be very useful.
 
 Let's take a look:
 
@@ -54,17 +54,50 @@ foreach ($cycle as $item) {
 
 This will loop over `['foo', 'bar', 'baz']` until the end of time, or when you cancel the program... whichever comes first :)
 
-> foo
-> bar
-> baz
-> foo
-> bar
-> baz
+> foo  
+> bar  
+> baz  
+> foo  
+> bar  
+> baz  
 
-Going back to our FizzBuzz example - the `Fizz|Buzz|FizzBuzz` pattern repeats over 15 iterations so we create an `InfiniteIterator()` instance to represent that, adding `null` as a placeholder for numeric values.
+Returning to our FizzBuzz example - the `Fizz|Buzz|FizzBuzz` pattern repeats over 15 iterations so we create an `InfiniteIterator()` instance to represent that, adding `null` as a placeholder for numeric values.
 
 Then, when generating the program output we use PHP's null coalesce operator (`??`) to check if the current `$value` is `null`. If the current `$value` is null, [`LimitIterator::getPosition()`](http://php.net/manual/en/limititerator.getposition.php) returns the incrementing numeric position of the inner iterator instead.
 
-And there we have it - Not Another FizzBuzz Implementation (NAFBI). Hopefully this example shows how SPL is full of useful tools (and some silly names like `RecursiveIteratorIterator`) that can perform useful functions in a few lines.
+Okay, enough talking, let's run it:
 
-Thanks for reading - until next time!
+> 1  
+> 2  
+> fizz  
+> 4  
+> buzz  
+> fizz  
+> 7  
+> 8  
+> fizz  
+> buzz  
+> 11  
+> fizz  
+> 13  
+> 14  
+> fizzbuzz  
+> 16  
+> 17  
+> fizz  
+> 19  
+> buzz  
+> fizz  
+> 22  
+> 23  
+> fizz  
+> buzz  
+> 26  
+> fizz  
+> 28  
+> 29  
+> fizzbuzz  
+
+Hopefully this example shows how SPL is full of useful tools (and some silly names like `RecursiveIteratorIterator`) that can provide useful functionality in a few lines.
+
+Thanks for reading—until next time!
