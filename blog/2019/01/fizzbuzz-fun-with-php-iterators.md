@@ -4,9 +4,11 @@
 
 Or... NAFBI (Not Another FizzBuzz Implementation).
 
-[FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) - that fun little coding exercise beloved of interviewers everywhere. Like all good diversions, it's as much about the journey as the destination... there's no end to the possible implementations, which means it's a good opportunity for the coder to show how simple, elegant, efficient or [enterprise-ready](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition) they can be in (mostly) a few lines.
+[FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz)—that fun little coding exercise beloved of interviewers everywhere. Like all good diversions, it's as much about the journey as the destination... there's no end to the possible implementations, which means it's a good opportunity for the coder to show how simple, elegant, efficient or [enterprise-ready](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition) they can be in (mostly) a few lines.
 
-I thought it was a good opportunity to look at some of PHP's [SPL iterators](http://php.net/manual/en/spl.iterators.php). The [Standard PHP Library (SPL)](http://php.net/manual/en/intro.spl.php) is a collection of classes, interfaces and functions designed to solve common problems. It's definitely worth getting to know some of them as they can be very useful.
+I thought it was a good opportunity to look at some of PHP's [SPL iterators](http://php.net/manual/en/spl.iterators.php) and how we can compose them to create a short and simple NAFBI.
+
+The [Standard PHP Library (SPL)](http://php.net/manual/en/intro.spl.php) is a collection of classes, interfaces and functions designed to solve common problems. It's definitely worth getting to know some of them as they can be very useful.
 
 Let's take a look:
 
@@ -42,7 +44,7 @@ foreach ($limit as $value) {
 
 [`ArrayIterator()`](http://php.net/manual/en/class.arrayiterator.php) is an object-oriented wrapper for PHP's `array` for use with iterators and [`LimitIterator()`](http://php.net/manual/en/class.limititerator.php) allows iteration over a limited subset of items in an iterator.
 
-[`InfiniteIterator()`](http://php.net/manual/en/class.infiniteiterator.php) is the most interesting of the three - it allows the infinite cycling over an array of values; e.g:
+[`InfiniteIterator()`](http://php.net/manual/en/class.infiniteiterator.php) is the most interesting of the three—it allows the infinite cycling over an array of values; e.g:
 
 ```php
 $cycle = new InfiniteIterator(new ArrayIterator(['foo', 'bar', 'baz']));
@@ -61,9 +63,11 @@ This will loop over `['foo', 'bar', 'baz']` until the end of time, or when you c
 > bar  
 > baz  
 
-Returning to our FizzBuzz example - the `Fizz|Buzz|FizzBuzz` pattern repeats over 15 iterations so we create an `InfiniteIterator()` instance to represent that, adding `null` as a placeholder for numeric values.
+Returning to our FizzBuzz example: the `Fizz|Buzz|FizzBuzz` pattern repeats over 15 iterations so we wrap an array in an `InfiniteIterator()` instance to represent that, adding `null` as a placeholder for numeric values.
 
-Then, when generating the program output we use PHP's null coalesce operator (`??`) to check if the current `$value` is `null`. If the current `$value` is null, [`LimitIterator::getPosition()`](http://php.net/manual/en/limititerator.getposition.php) returns the incrementing numeric position of the inner iterator instead.
+Secondly, we wrap the `InfiniteIterator()` in a `LimitIterator()` which will cycle over the values until the defined `MAX_ITERATIONS`.
+
+Finally, when generating the program output we use PHP's null coalesce operator (`??`) to check if the current `$value` is `null`. If the current `$value` is null, [`LimitIterator::getPosition()`](http://php.net/manual/en/limititerator.getposition.php) returns the incrementing numeric position of the inner iterator.
 
 Okay, enough talking, let's run it:
 
@@ -98,6 +102,6 @@ Okay, enough talking, let's run it:
 > 29  
 > fizzbuzz  
 
-Hopefully this example shows how SPL is full of useful tools (and some silly names like `RecursiveIteratorIterator`) that can provide useful functionality in a few lines.
+Hopefully this example shows how SPL is full of useful tools that can provide useful functionality in a few lines. And some silly names like `RecursiveIteratorIterator` :)
 
 Thanks for reading—until next time!
