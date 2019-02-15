@@ -2,7 +2,7 @@
 
 # RangeError: Maximum call stack size exceeded
 
-Seen in [Cork](https://en.wikipedia.org/wiki/Cork_(city)), Ireland today:
+Seen in [Cork, Ireland](https://en.wikipedia.org/wiki/Cork_(city)) yesterday:
 
 ![](images/self_brushing.jpg){:class="img-fluid"}
 
