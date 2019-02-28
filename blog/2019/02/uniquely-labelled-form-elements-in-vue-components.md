@@ -71,11 +71,11 @@ A user must enter a search term to enable the search button. When they click the
 
 ## But...
 
-There's a problem here though—if we reuse this component in various parts of our document, the `input#search-term` is no longer a _unique_ id and is no longer an identifiable labelled control. Clicking on any `search-box` label will always focus the _first_ input that id.
+There's a problem here—if we reuse this component in various parts of our document, the `input#search-term` is no longer a _unique_ id and is no longer an accurately identifiable labelled control. Clicking on any `search-box` label will always focus the _first_ input with that id. Not much good if you have more than one instance on the page.
 
 ## Solution
 
-Fortunately, a solution is very straightforward! We just need to create a computed property with a unique id for each component.
+Fortunately, a solution is very straightforward! We need to create a computed property with a unique id for each component.
 
 `_uid` to the rescue. It's an internal property of each component—an integer id that Vue assigns to uniquely identify each component it creates.
 
