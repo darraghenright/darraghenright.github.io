@@ -2,6 +2,7 @@
 
 ## 2019
 
+* [Uniquely labelled form elements in Vue Components](./blog/2019/02/uniquely-labelled-form-elements-in-vue-components.md)
 * [Editing remote files locally with help from `vim scp` and OpenSSH `ProxyJump`](./blog/2019/02/editing-remote-files-locally-with-help-from-vim-scp-and-openssh-proxyjump.md)
 * [RangeError: Maximum call stack size exceeded](./blog/2019/02/rangeError-maximum-call-stack-size-exceeded.md)
 * [FizzBuzz fun with PHP Iterators](./blog/2019/01/fizzbuzz-fun-with-php-iterators.md)
