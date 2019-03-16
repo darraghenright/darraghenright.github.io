@@ -79,7 +79,7 @@ Fortunately, a solution is very straightforward! We need to create a computed pr
 
 `_uid` to the rescue. It's an internal property of each component—an integer id that Vue assigns to uniquely identify each component it creates.
 
-We could choose a more robust method to create a unique identifier, and I would normally be shy about replying on the internal properties of a Vue component instance.
+We could choose a more robust method to create a unique identifier, and I would normally be shy about relying on the internal properties of a Vue component instance.
 
 However, given this particular use-case it's worth the trade-off and not have to worry about generating a unique value ourselves.
 
