@@ -4,7 +4,7 @@
 
 ### March
 
-* [Quickly rename a JS object property with Rest Parameters, Spread Syntax and Object Descructuring](./blog/2019/03/quickly-rename-a-js-object-property-with-rest-parameters,-spread-syntax-and-object-descructuring.md)
+* [Quickly rename a JS object property with Rest Parameters, Spread Syntax and Object Destructuring](./blog/2019/03/quickly-rename-a-js-object-property-with-rest-parameters,-spread-syntax-and-object-descructuring.md)
 
 ### February
 
