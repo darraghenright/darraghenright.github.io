@@ -1,6 +1,6 @@
 Sunday 16th March 2019
 
-# Quickly rename a JS object property with Rest Parameters, Spread Syntax and Object Descructuring
+# Quickly rename a JS object property with Rest Parameters, Spread Syntax and Object Destructuring
 
 The other day I was working on a JS project where I had a small array of object literals from an API call, which looked something like this:
 
